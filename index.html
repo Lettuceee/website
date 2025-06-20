@@ -6,25 +6,21 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: ./public/mdc-2025-track.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-scene mindar-image="imageTargetSrc: ./public/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
         <a-asset-item id="mickeyWave" src="./public/mickey-wave.glb"></a-asset-item>
-      </a-assets>
-
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="90 90 90" position="0 0 0.5" scale="0.05 0.05 0.05" src="#mickeyWave" animation-mixer="timeScale.1">
-      </a-entity>
-    </a-scene>
-    <a-scene mindar-image="imageTargetSrc: ./public/fdc-2025-track.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-assets>
         <a-asset-item id="curtissFly" src="./public/curtiss.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="90 90 90" position="0 0 0.5" scale="0.05 0.05 0.05" src="#curtissFly" animation-mixer="timeScale.1">
+        <a-gltf-model rotation="90 90 90" position="0 0 0.5" scale="0.05 0.05 0.05" src="#mickeyWave" animation-mixer="timeScale.1">
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 1">
+        <a-gltf-model rotation="90 90 90" position="0 0 2" scale="0.05 0.05 0.05" src="#mickeyWave" animation-mixer="timeScale.1">
       </a-entity>
     </a-scene>
+
   </body>
 </html>
