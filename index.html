@@ -11,9 +11,9 @@
         const sceneEl = document.querySelector("#scene");
         sceneEl.addEventListener("arReady", (event) => {          
           const cake = document.querySelector("#cakeAR");
-          cake.setAttribute("visible", false);
+          cake.addEventListener('click', (event) => {cake.setAttribute("visible", false)});
         })
-      })
+      });
     </script>
   </head>
 
