@@ -6,13 +6,19 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
     <script>
-    const cake = document.querySelector("#cakeAR");
-    cake.setAttribute("visible", false);
+      window.addEventListener("DOMContentLoaded", (event) => {
+
+        const sceneEl = document.querySelector("#scene");
+        sceneEl.addEventListener("arReady", (event) => {          
+          const cake = document.querySelector("#cakeAR");
+          cake.setAttribute("visible", false);
+        })
+      })
     </script>
   </head>
 
   <body>
-    <a-scene mindar-image="imageTargetSrc: ./public/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-scene id="scene" mindar-image="imageTargetSrc: ./public/targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
         <a-asset-item id="mickeyWave" src="./public/mickey-wave.glb"></a-asset-item>
         <a-asset-item id="curtissFly" src="./public/curtiss.glb"></a-asset-item>
