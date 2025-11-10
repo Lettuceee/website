@@ -5,6 +5,7 @@ import anime from 'animejs';
 import "./App.css";
 import Intro from './Intro.jsx';
 import Info from './Info.jsx';
+import Wallpaper from './Wallpaper.jsx';
 import Logo from './Logo.jsx';
 import IconInfo from "./icons/icon-info.png";
 import IconFolder from "./icons/icon-folder.png";
@@ -17,28 +18,34 @@ import paperPortholeVideo from "./wallpaper/porthole.mp4";
 
 export default function Desktop() {
 
+    /* zIndex for windows */
+    const [indexCount, setIndexCount] = useState(2)
+    const [componentList, setComponentList] = useState([]);
+
     const nodeRefInfo = useRef (null);
-    const nodeRefWallpaper = useRef(null);
     const nodeRefIcon = useRef(null);
+
+    /* Date and time for taskbar */
     const [time, setTime] = useState()
     const [date, setDate] = useState()
+
+    /* Mode and wallpaper */
     const [taskStyle, setTaskStyle] = useState("twilight")
     const [paperStyle, setPaperStyle] = useState("noPaper")
-    const [crtVis, setCrtVis] = useState(true)
     const [paperShapesVideoVis, setPaperShapesVideoVis] = useState(false)
     const [paperHudVideoVis, setPaperHudVideoVis] = useState(false)
     const [paperPortholeVideoVis, setPaperPortholeVideoVis] = useState(false)
+
+    const [crtVis, setCrtVis] = useState(true)
     const [crtText, setCrtText] = useState("ON")
+
+
     const [showWindowInfo, setShowWindowInfo] = useState(false)
     const [showWindowWallpaper, setShowWindowWallpaper] = useState(false)
     const [showWindowProjects, setShowWindowProjects] = useState(false)
-    var bgLogoAppear = anime.timeline()
-    const [indexCount, setIndexCount] = useState(2)
     const [infoIndex, setInfoIndex] = useState(1)
     const [projectsIndex, setProjectsIndex] = useState(1)
     const [wallpaperIndex, setWallpaperIndex] = useState(1)
-
-    
 
 
     function crtSwitch() {
@@ -115,6 +122,26 @@ export default function Desktop() {
             setDate(currentDate)
         }, 1000)    
     }, [])
+
+    function addNewComponent() {
+        let newValue = indexCount + 1;
+        setMaxZIndex(newValue);
+
+        let newArray = componentList.concat({
+        id: componentList.length,
+        zIndex: newValue,
+        });
+        setComponentList(newArray);
+    }
+    function parentClickHandler(id) {
+        let newValue = indexCount + 1;
+        setMaxZIndex(newValue);
+
+        let newArray = componentList.map((item) =>
+        item.id === id ? { ...item, zIndex: newValue } : item
+        );
+        setComponentList(newArray);
+    }
 
     return (
             <div id="desktop" class={taskStyle}>
@@ -240,132 +267,18 @@ export default function Desktop() {
                     </Draggable>
                 }
                 {showWindowWallpaper &&
-                    <Draggable nodeRef={nodeRefWallpaper}>
-                        <div ref={nodeRefWallpaper} className="window" id="wallpaper" style={{zIndex:`${wallpaperIndex}`}} onMouseDownCapture={() => {
-                            setIndexCount((prevValue) => prevValue + 1)
-                            setWallpaperIndex(indexCount)
-                        }}>
-                            <div className="windowheader">Wallpaper
-                                <div className="close" onClick={() => setShowWindowWallpaper(false)}></div>
-                            </div>
-                            <div className="windowContent">
-                                <div class="paperSelect">
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id={taskStyle} onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("noPaper")
-                                        }}>
-                                            <div id="bgLogoPreview">
-                                                <Logo logoViewbox={"0 0 17777.39 405.84"}/>
-                                            </div>
-                                        </div>
-                                        Default
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="shapesPreview" onClick={() => {
-                                            setPaperStyle("shapesPreview")
-                                            setPaperShapesVideoVis(true)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                        }}></div>
-                                         ▶ Shapes
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="hudPreview" onClick={() => {
-                                            setPaperStyle("hudPreview")
-                                            setPaperHudVideoVis(true)
-                                            setPaperShapesVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                        }}></div>
-                                         ▶ Hologram
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="portholePreview" onClick={() => {
-                                            setPaperStyle("portholePreview")
-                                            setPaperPortholeVideoVis(true)
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                        }}></div>
-                                        ▶ Porthole
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="underpass" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("underpass")
-                                        }}></div>
-                                        Underpass
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="burki" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("burki")
-                                        }}></div>
-                                        St. Louis City SC
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="pigeons" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("pigeons")
-                                        }}></div>
-                                        D.C. Pigeons
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="dogs" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("dogs")
-                                        }}></div>
-                                        Malarkey and Ollie
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="vrchat1" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("vrchat1")
-                                        }}></div>
-                                        VRChat 1
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="vrchat2" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("vrchat2")
-                                        }}></div>
-                                        VRChat 2
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="img8461" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("img8461")
-                                        }}></div>
-                                        IMG_8461
-                                    </div>
-                                    <div class="paperOption">
-                                        <div class="paperPreview" id="sunset" onClick={() => {
-                                            setPaperShapesVideoVis(false)
-                                            setPaperHudVideoVis(false)
-                                            setPaperPortholeVideoVis(false)
-                                            setPaperStyle("sunset")
-                                        }}></div>
-                                        Desert Sunset
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Draggable>
+                    <Wallpaper
+                        setPaperStyle={setPaperStyle}
+                        setPaperShapesVideoVis={setPaperShapesVideoVis}
+                        setPaperHudVideoVis={setPaperHudVideoVis}
+                        setPaperPortholeVideoVis={setPaperPortholeVideoVis}
+                        indexCount={indexCount}
+                        setIndexCount={setIndexCount}
+                        wallpaperIndex={wallpaperIndex}
+                        setWallpaperIndex={setWallpaperIndex}
+                        taskStyle={taskStyle}
+                        setShowWindowWallpaper={setShowWindowWallpaper}
+                    />
                 }
             </div>
     )    
