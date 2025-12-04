@@ -11,7 +11,9 @@
         const sceneEl = document.querySelector("#scene");
         sceneEl.addEventListener("arReady", (event) => {          
           const cake = document.querySelector("#cakeAR");
+          const ball = document.querySelector("confettiBall")
           cake.addEventListener('click', (event) => {cake.setAttribute("visible", false)});
+          ball.addEventListener('click', (event) => {ball.setAttribute("animation-mixer","timeScale: 1; clip: idle")});
         })
       });
     </script>
@@ -37,8 +39,8 @@
       <a-entity mindar-image-target="targetIndex: 2" class="clickable" id="cakeAR" visible=true>
         <a-gltf-model rotation="90 90 90" position="0 0 0.1" scale="0.5 0.5 0.5" src="#chocoCake" animation-mixer="timeScale.1">
       </a-entity>
-      <a-entity mindar-image-target="targetIndex: 3" class="clickable" id="cakeAR" visible=true>
-        <a-gltf-model rotation="0 90 90" position="0 0 0.1" scale="0.2 0.2 0.2" src="#cBall" animation-mixer="timeScale.1; clip:open; loop:pingpong;">
+      <a-entity mindar-image-target="targetIndex: 3" class="clickable" id="confettiBall" visible=true animation-mixer="timeScale: 1; clip: shake">
+        <a-gltf-model rotation="0 90 90" position="0 0 0.1" scale="0.2 0.2 0.2" src="#cBall">
       </a-entity>
     </a-scene>
 
