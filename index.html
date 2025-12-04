@@ -6,14 +6,17 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
     <script>
-      window.addEventListener("DOMContentLoaded", (event) => {
+      document.addEventListener("DOMContentLoaded", function () {
 
         const sceneEl = document.querySelector("#scene");
-        sceneEl.addEventListener("arReady", (event) => {          
-          const cake = document.querySelector("#cakeAR");
-          const ball = document.querySelector("#confettiBall");
-          cake.addEventListener('click', (event) => {cake.setAttribute("visible", false)});
-          ball.addEventListener('click', (event) => {ball.setAttribute("visible", false)});
+        let arSystem;
+        sceneEl.addEventListener('loaded', function () {          
+          arSystem = sceneEl.systems["mindar-image-system"];
+          arSystem.start();
+          const cake = document.querySelector("#cakeAR")
+          const ball = document.querySelector("#confettiBall")
+          cake.addEventListener('click', (event) => {cake.setAttribute("visible", false)})
+          ball.addEventListener('click', (event) => {ball.setAttribute("visible", false)})
         })
       });
     </script>
